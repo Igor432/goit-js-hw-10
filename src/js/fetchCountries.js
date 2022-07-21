@@ -8,7 +8,6 @@ const countryInput = document.querySelector('input');
 const countryInfo = document.querySelector('.country-info');
 
 
-
 function fetchCountries(name) {
 
     return fetch(`https://restcountries.com/v2/name/${name}?fields=name,capital,population,flags,languages,currencies`)
@@ -37,15 +36,19 @@ function makeList(countries) {
             }).join("")
         countryInfo.innerHTML = list;
     } else {
+
+
         const list = countries
+
             .map(({ name, capital, population, flags, languages, currencies }) => {
-                return `<li>Name: ${name}</li>
+
+                return `<li> <img src=${flags.svg} height='60px' width='90px'> ${name}</li>
             <li>Capital: ${capital}</li>
             <li>Populatio: ${population} </li>
             
-            <li>Languages: ${languages[0].name}</li>
+            <li>Languages: ${languages[0].name}</li >
             <li>Currency: ${currencies[0].name}</li>
-            <li> <img src=${flags.svg} height='60px' width='90px'></li>`
+            `
             }).join("");
         countryInfo.innerHTML = list;
     }
