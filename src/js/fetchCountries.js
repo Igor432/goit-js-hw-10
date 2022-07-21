@@ -1,6 +1,7 @@
 
 import debounce from "lodash.debounce";
 var debounce = require('lodash.debounce');
+import Notiflix from 'notiflix';
 
 const countryList = document.querySelector('.country_list');
 const countryInput = document.querySelector('input');
@@ -36,18 +37,30 @@ function makeList(countries) {
             <li>Currency: ${currencies[0].name}</li>
             <li> <img src=${flags.svg} height='60px' width='90px'></li>`
         })
-    countryInfo.innerHTML = list;
+
     console.log(countries)
+    if (list.length > 10) {
+        Notiflix.Notify.info('"Too many matches found. Please enter a more specific name."');
+    } else {
+        countryInfo.innerHTML = list;
+    }
 }
 
 
 
 
-countryInput.addEventListener('input', debounce(() => {
 
+countryInput.addEventListener('input', debounce(() => {
     inputText = countryInput.value
-    fetchCountries(inputText)
-        .then((countries) => makeList(countries))
+
+    if (inputText === '') {
+        countryInfo.innerHTML = '';
+    } else {
+        fetchCountries(inputText)
+            .then((countries) => makeList(countries))
+
+    }
+
 
 }, 300))
 
