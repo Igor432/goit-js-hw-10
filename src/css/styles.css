@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  list-style: none;
 }
 
 body {
@@ -18,3 +19,4 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
