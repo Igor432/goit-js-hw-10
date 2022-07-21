@@ -27,21 +27,30 @@ function fetchCountries(name) {
 
 function makeList(countries) {
 
-    const list = countries
-        .map(({ name, capital, population, flags, languages, currencies }) => {
-            return `<li>Name: ${name}</li>
+
+    console.log(countries)
+
+
+    if (countries.length > 10) {
+        Notiflix.Notify.info('"Too many matches found. Please enter a more specific name."');
+    } else if (countries.length > 2 && countries.length < 10) {
+        const list = countries
+            .map(({ name, flags }) => {
+                return `
+            <li> <img src=${flags.svg} height='20px' width='30px'> ${name} </li>`
+            })
+        countryInfo.innerHTML = list;
+    } else {
+        const list = countries
+            .map(({ name, capital, population, flags, languages, currencies }) => {
+                return `<li>Name: ${name}</li>
             <li>Capital: ${capital}</li>
             <li>Populatio: ${population} </li>
             
             <li>Languages: ${languages[0].name}</li>
             <li>Currency: ${currencies[0].name}</li>
             <li> <img src=${flags.svg} height='60px' width='90px'></li>`
-        })
-
-    console.log(countries)
-    if (list.length > 10) {
-        Notiflix.Notify.info('"Too many matches found. Please enter a more specific name."');
-    } else {
+            })
         countryInfo.innerHTML = list;
     }
 }
