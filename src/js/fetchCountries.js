@@ -41,7 +41,7 @@ function makeList(countries) {
         const list = countries
 
             .map(({ name, capital, population, flags, languages, currencies }) => {
-                for (lang of languages) {
+                for (let lang of languages) {
                     allLang.push(lang.name)
                 }
 
