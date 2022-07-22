@@ -41,16 +41,16 @@ function makeList(countries) {
         const list = countries
 
             .map(({ name, capital, population, flags, languages, currencies }) => {
-                for (let lang of languages) {
+                for (var lang of languages) {
                     allLang.push(lang.name)
                 }
 
-                return `<li> <img src=${flags.svg} height='40px' width='60px'> ${name}</li>
-            <li>Capital: ${capital}</li>
-            <li>Populatio: ${population} </li>
+                return `<li class='list_item'> <img src=${flags.svg} height='40px' width='60px'><span class='list_title name'> ${name}</span></li>
+            <li class='list_item'><span class='list_title'>Capital:</span> ${capital}</li>
+            <li class='list_item'><span class='list_title'>Population:</span> ${population} </li>
             
-            <li>Languages: ${allLang.join(', ')}</li >
-            <li>Currency: ${currencies[0].name}</li>
+            <li class='list_item'><span class='list_title'>Languages:</span> ${allLang.join(', ')}</li >
+            <li class='list_item'><span class='list_title'>Currency:</span> ${currencies[0].name}</li>
             `
             }).join("");
         countryInfo.innerHTML = list;
