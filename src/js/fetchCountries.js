@@ -59,7 +59,7 @@ function makeList(countries) {
 
 
 countryInput.addEventListener('input', debounce(() => {
-    inputText = countryInput.value
+    var inputText = countryInput.value
 
     if (inputText === '') {
         countryInfo.innerHTML = '';
