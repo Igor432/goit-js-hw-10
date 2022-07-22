@@ -28,7 +28,7 @@ function makeList(countries) {
 
     if (countries.length > 10) {
         Notiflix.Notify.info('"Too many matches found. Please enter a more specific name."');
-    } else if (countries.length >= 2 && countries.length < 10) {
+    } else if (countries.length >= 2 && countries.length <= 10) {
         const list = countries
             .map(({ name, flags }) => {
                 return `
@@ -37,16 +37,19 @@ function makeList(countries) {
         countryInfo.innerHTML = list;
     } else {
 
-
+        var allLang = [];
         const list = countries
 
             .map(({ name, capital, population, flags, languages, currencies }) => {
+                for (lang of languages) {
+                    allLang.push(lang.name)
+                }
 
-                return `<li> <img src=${flags.svg} height='60px' width='90px'> ${name}</li>
+                return `<li> <img src=${flags.svg} height='40px' width='60px'> ${name}</li>
             <li>Capital: ${capital}</li>
             <li>Populatio: ${population} </li>
             
-            <li>Languages: ${languages[0].name}</li >
+            <li>Languages: ${allLang.join(', ')}</li >
             <li>Currency: ${currencies[0].name}</li>
             `
             }).join("");
