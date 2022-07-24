@@ -1,6 +1,6 @@
 
 import debounce from "lodash.debounce";
-var debounce = require('lodash.debounce');
+let debounce = require('lodash.debounce');
 import Notiflix from 'notiflix';
 
 const countryList = document.querySelector('.country_list');
@@ -14,8 +14,7 @@ function fetchCountries(name) {
         .then(response => {
             if (!response.ok) {
 
-                Notiflix.Notify.failure("Oops, there is no country with that name")
-
+                Notiflix.Notify.failure('Oops, there is no country with that name');
             }
             return response.json()
         }
@@ -23,7 +22,7 @@ function fetchCountries(name) {
 }
 
 function makeList(countries) {
-
+    let allLang = [];
     console.log(countries)
 
     if (countries.length > 10) {
@@ -35,24 +34,23 @@ function makeList(countries) {
             <li> <img src=${flags.svg} height='20px' width='30px'> ${name} </li>`
             }).join("")
         countryInfo.innerHTML = list;
+
     } else {
 
-        var allLang = [];
-        const list = countries
 
-            .map(({ name, capital, population, flags, languages, currencies }) => {
-                for (var lang of languages) {
-                    allLang.push(lang.name)
-                }
+        const list = countries.map(({ name, capital, population, flags, languages, currencies }) => {
+            for (let lang of languages) {
+                allLang.push(lang.name)
+            }
 
-                return `<li class='list_item'> <img src=${flags.svg} height='40px' width='60px'><span class='list_title name'> ${name}</span></li>
+            return `<li class='list_item'> <img src=${flags.svg} height='40px' width='60px'><span class='list_title name'> ${name}</span></li>
             <li class='list_item'><span class='list_title'>Capital:</span> ${capital}</li>
             <li class='list_item'><span class='list_title'>Population:</span> ${population} </li>
             
             <li class='list_item'><span class='list_title'>Languages:</span> ${allLang.join(', ')}</li >
             <li class='list_item'><span class='list_title'>Currency:</span> ${currencies[0].name}</li>
             `
-            }).join("");
+        }).join("");
         countryInfo.innerHTML = list;
     }
 }
@@ -66,7 +64,7 @@ countryInput.addEventListener('input', debounce(() => {
     } else {
         fetchCountries(inputText)
             .then((countries) => makeList(countries))
-
+            .catch(error => console.log(error));
     }
 }, 300))
 
